@@ -5,21 +5,21 @@
 
 /* #INCLUDES GO HERE */
 
-#include <gameStructures.h>
+#include "gameStructures.h"
 
-#include <gameSetup.h>
+#include "gameSetup.h"
 #include "gameSetup.c"
 
-#include <gameIO.h>
+#include "gameIO.h"
 #include "gameIO.c"
 
-#include <random.h>
+#include "random.h"
 #include "random.c"
 
-#include <stackMethods.h>
+#include "stackMethods.h"
 #include "stackMethods.c"
 
-#include <initialTokens.h>
+#include "initialTokens.h"
 #include "initialTokens.c"
 
 int main(void)
