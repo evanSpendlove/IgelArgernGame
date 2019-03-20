@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "gamestructures.h": "c",
+        "random.h": "c",
+        "initialtokens.h": "c"
+    }
+}
