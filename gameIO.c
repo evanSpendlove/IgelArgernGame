@@ -128,23 +128,23 @@ void printTokensInCell(cell board[6][9], int tokensPerCell, int rows, int column
     {
         for(tokenCount = 0; tokenCount <= board[rows][columns].topOfStack; tokenCount++) // For each token up to the number of tokens in the stack
         {
-            if(strcmp(board[rows][columns].stack[tokenCount].colour, "Red") == 0) // If the token colour is red
+            if(board[rows][columns].stack[tokenCount].tokenColour == 0) // If the token colour is red
             {
                 printf(PRINT_RED "%c" PRINT_RESET, tokenImg); // Print a red token
             }
-            else if(strcmp(board[rows][columns].stack[tokenCount].colour, "Blue") == 0) // If the token colour is blue
+            else if(board[rows][columns].stack[tokenCount].tokenColour == 1) // If the token colour is blue
             {
                 printf(PRINT_BLUE "%c" PRINT_RESET, tokenImg); // Print a blue token
             }
-            else if(strcmp(board[rows][columns].stack[tokenCount].colour, "Green") == 0) // If the token colour is green
+            else if(board[rows][columns].stack[tokenCount].tokenColour == 2) // If the token colour is green
             {
                 printf(PRINT_GREEN "%c" PRINT_RESET, tokenImg); // Print a green token
             }
-            else if(strcmp(board[rows][columns].stack[tokenCount].colour, "Magenta") == 0) // If the token colour is magenta
+            else if(board[rows][columns].stack[tokenCount].tokenColour == 3) // If the token colour is magenta
             {
                 printf(PRINT_MAGENTA "%c" PRINT_RESET, tokenImg); // Print a magenta token
             }
-            else if(strcmp(board[rows][columns].stack[tokenCount].colour, "Cyan") == 0) // If the token colour is Cyan
+            else if(board[rows][columns].stack[tokenCount].tokenColour == 4) // If the token colour is Cyan
             { 
                 printf(PRINT_CYAN "%c" PRINT_RESET, tokenImg); // Print a cyan token
             }

@@ -4,7 +4,7 @@
     isValidPlacement() function:
         -->
 */
-int isValidPlacement(cell board[][MAX_COLUMNS], const int placedTokenCount, char playerColour[8]);
+int isValidPlacement(cell board[][MAX_COLUMNS], const int placedTokenCount, enum colour playerColour);
 
 /*
     userPlaceToken() function:

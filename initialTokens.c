@@ -2,7 +2,7 @@
 #include "gameIO.h"
 #include "stackMethods.h"
 
-int isValidPlacement(cell board[][MAX_COLUMNS], const int placedTokenCount, char playerColour[8])
+int isValidPlacement(cell board[][MAX_COLUMNS], const int placedTokenCount, enum colour playerColour)
 {
     bool validPlacement = false; // Flag for valid placement status
     int rowChoice = 0; // Integer variable for storing user's choice of row
@@ -25,7 +25,7 @@ int isValidPlacement(cell board[][MAX_COLUMNS], const int placedTokenCount, char
             }
         }
 
-        else if((board[rowChoice-1][0].topOfStack == ((placedTokenCount/MAX_ROWS)-1)) && (strcmp(board[rowChoice-1][0].stack[board[rowChoice-1][0].topOfStack].colour, playerColour) != 0)) // If the chosen row's stack counter is equal to the average token count per row
+        else if((board[rowChoice-1][0].topOfStack == ((placedTokenCount/MAX_ROWS)-1)) && (board[rowChoice-1][0].stack[board[rowChoice-1][0].topOfStack].tokenColour != playerColour)) // If the chosen row's stack counter is equal to the average token count per row
         {
             validPlacement = true; // Set boolean to true
             printf("Chosen a non-empty stack.\n");
@@ -57,7 +57,7 @@ void initialTokenPlacement(cell board[][MAX_COLUMNS], const int totalPlayers, pl
         for(int player = 0; player < totalPlayers; player++)
         {
             printInstruction("%s's turn:\n", playerList[player].username);
-            rowChoice = isValidPlacement(board, placedTokenCount, playerList[player].colour);
+            rowChoice = isValidPlacement(board, placedTokenCount, playerList[player].userColour);
             userPlaceToken(board, playerList, player, rowChoice, 0);
             placedTokenCount++;
         }

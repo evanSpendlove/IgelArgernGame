@@ -15,7 +15,7 @@ void tokenSetup(int playerIndex, player playerList[])
 {
     for(int token = 0; token < 4; token++) // For every token that a user has (i.e. starts with)
     {
-        strcpy(playerList[playerIndex].user_stack[token].colour, playerList[playerIndex].colour); // Sets all of the user's tokens to their chosen colour
+        playerList[playerIndex].user_stack[token].tokenColour = playerList[playerIndex].userColour; // Sets all of the user's tokens to their chosen colour
     }
 
     playerList[playerIndex].topOfStack = 3; // Points to the top of the stack, currently the 4th token
@@ -24,7 +24,7 @@ void tokenSetup(int playerIndex, player playerList[])
 void colourNotChosen(int* colour, player playerList[], const int totalPlayers)
 {
     int validColourChoice = -1; // Flag used for looping until a valid colour choice has been made
-    char tokenColours[6][8] = {"Red", "Blue", "Green", "Magenta", "Cyan", "Yellow"}; // List of available token colours
+    int availableColours[6] = {0,1,2,3,4,5}; // List of available token colours
 
     clearInput(); // Clears input buffer
 
@@ -38,7 +38,7 @@ void colourNotChosen(int* colour, player playerList[], const int totalPlayers)
             
             for(int player = 0; player < totalPlayers && validColourChoice != 0; player++) // For each player in playerList
             {
-                if(strcmp(tokenColours[*colour-1], playerList[player].colour) == 0) // If the colour chosen matches an existing colour
+                if(availableColours[*colour-1] == playerList[player].userColour) // If the colour chosen matches an existing colour
                 {
                     validColourChoice = 0; // The colour is already chosen
                     printInstruction("Sorry, this colour is already chosen. Please choose another:\n"); // Print an error to the user
@@ -69,7 +69,7 @@ void getUserColour(int i, player playerList[])
 
     colourNotChosen(&colourChoice, playerList, i+1); // Verifies that the colour selected by the user is not already chosen
 
-    strcpy(playerList[i].colour, tokenColours[(colourChoice-1)]); // Copies the colour choice to the user's colour attribute
+    playerList[i].userColour = colourChoice-1; // Copies the colour choice to the user's colour attribute
 }
 
 void playerSetup(player playerList[], const int totalPlayers)

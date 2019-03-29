@@ -6,9 +6,9 @@
 
 #include "tokenMethods.h"
 
-bool isUsersToken(int row, int column, char userColour[8], cell board[][MAX_COLUMNS])
+bool isUsersToken(int row, int column, enum colour userColour, cell board[][MAX_COLUMNS])
 {
-    if(strcmp(board[row][column].stack[board[row][column].topOfStack].colour, userColour) == 0)
+    if(board[row][column].stack[board[row][column].topOfStack].tokenColour == userColour)
     {
         return true;
     }

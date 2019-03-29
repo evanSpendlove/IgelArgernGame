@@ -42,9 +42,11 @@
         */
         enum gameStatus { to_start, in_progress, complete };
 
+        enum colour { Red, Blue, Green, Magenta, Cyan, Yellow };
+
         typedef struct token
         {
-            char colour[8]; // Stores the colour of the token
+            enum colour tokenColour; // Stores the colour of the token
         }token;
 
         typedef struct cell
@@ -57,7 +59,7 @@
         typedef struct player
         {
             char username[100]; // Stores the username of the player
-            char colour[8]; // Stores the colour of the user
+            enum colour userColour; // Stores the colour of the token
             token user_stack[4]; // Stores the tokens of the user
             int topOfStack; // Points to the current top of the stack
         }player;
