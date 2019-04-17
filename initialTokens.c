@@ -2,6 +2,40 @@
 #include "gameIO.h"
 #include "stackMethods.h"
 
+int onlyAvailablePlacement(cell board[][MAX_COLUMNS], const int placedTokenCount, enum colour playerColour)
+{
+    int invalidRows[6] = {0};
+    int invalidRowcounter = 0;
+
+    for(int row = 0; row < MAX_ROWS; row++)
+    {
+        int stackValue = countStack(board[row][0].stackPtr);
+        if(stackValue != ((placedTokenCount/MAX_ROWS)))
+        {
+            invalidRows[row] = 1;
+            invalidRowcounter++;
+        }
+    }
+
+    if(invalidRowcounter == 5)
+    {
+        int validRow;
+        for(int row = 0; row < MAX_ROWS; row++)
+        {
+            if(invalidRows[row] != 1)
+            {
+                validRow = row;
+            }
+        }
+        if(returnTopValue(board[validRow][0].stackPtr) == playerColour)
+        {
+            return validRow;
+        }
+    }
+
+    return -1;
+}
+
 int isValidPlacement(cell board[][MAX_COLUMNS], const int placedTokenCount, enum colour playerColour)
 {
     bool validPlacement = false; // Flag for valid placement status
@@ -13,6 +47,7 @@ int isValidPlacement(cell board[][MAX_COLUMNS], const int placedTokenCount, enum
         validInput(&rowChoice, 1, 6); // Validate that their input is an integer and lies within the range 1 - 6
         int stackValue = countStack(board[rowChoice-1][0].stackPtr);
         int topValue = returnTopValue(board[rowChoice-1][0].stackPtr);
+        int onlyValidRow = onlyAvailablePlacement(board, placedTokenCount, playerColour);
         if(placedTokenCount < 6) // If not all of the rows have a token on them
         {
             if(isStackEmpty(board[rowChoice-1][0].stackPtr) == 1) // Only allow user to pick a row that has an empty stack
@@ -30,6 +65,17 @@ int isValidPlacement(cell board[][MAX_COLUMNS], const int placedTokenCount, enum
         {
             validPlacement = true; // Set boolean to true
             printf("Chosen a non-empty stack.\n");
+        }
+
+        else if(onlyValidRow != -1)
+        {
+            printf("Please select any row except %d:\n", onlyValidRow);
+            validInput(&rowChoice, 1, 6);
+            if(rowChoice != onlyValidRow)
+            {
+                validPlacement = true;
+                printf("You've picked a valid row (these rules are funny, huh).");
+            }
         }
 
         else
