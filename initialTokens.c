@@ -11,7 +11,8 @@ int isValidPlacement(cell board[][MAX_COLUMNS], const int placedTokenCount, enum
     {
         printInstruction("Which row do you wish to place your token in?\n"); // Instruct the user to pick a row
         validInput(&rowChoice, 1, 6); // Validate that their input is an integer and lies within the range 1 - 6
-
+        int stackValue = countStack(board[rowChoice-1][0].stackPtr);
+        int topValue = returnTopValue(board[rowChoice-1][0].stackPtr);
         if(placedTokenCount < 6) // If not all of the rows have a token on them
         {
             if(isStackEmpty(board[rowChoice-1][0].stackPtr) == 1) // Only allow user to pick a row that has an empty stack
@@ -25,7 +26,7 @@ int isValidPlacement(cell board[][MAX_COLUMNS], const int placedTokenCount, enum
             }
         }
 
-        else if(((countStack(board[rowChoice-1][0].stackPtr)) == ((placedTokenCount/MAX_ROWS)-1)) && (returnTopValue(board[rowChoice-1][0].stackPtr) != playerColour)) // If the chosen row's stack counter is equal to the average token count per row
+        else if((stackValue == ((placedTokenCount/MAX_ROWS))) && (topValue != playerColour)) // If the chosen row's stack counter is equal to the average token count per row
         {
             validPlacement = true; // Set boolean to true
             printf("Chosen a non-empty stack.\n");

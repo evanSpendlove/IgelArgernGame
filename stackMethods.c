@@ -116,6 +116,48 @@ int printList( ListNodePtr currentPtr )
      } /* end else */
 } /* end function printList */
 
+int printStacks(ListNodePtr currentStack){
+    int count = countStack(currentStack);
+    int stack[count];
+    int i = 0;
+    if(currentStack != NULL){
+        while(currentStack != NULL){
+            stack[i] = currentStack->data;
+            currentStack = currentStack->prevPtr;
+            i++;
+        }
+        i--;
+        while(i > -1){
+            if(stack[i] == 0) // If the token colour is red
+            {
+                printf(PRINT_RED "%c" PRINT_RESET, '|'); // Print a red token
+            }
+            else if(stack[i] == 1) // If the token colour is blue
+            {
+                printf(PRINT_BLUE "%c" PRINT_RESET, '|'); // Print a blue token
+            }
+            else if(stack[i] == 2) // If the token colour is green
+            {
+                printf(PRINT_GREEN "%c" PRINT_RESET, '|'); // Print a green token
+            }
+            else if(stack[i] == 3) // If the token colour is magenta
+            {
+                printf(PRINT_MAGENTA "%c" PRINT_RESET, '|'); // Print a magenta token
+            }
+            else if(stack[i] == 4) // If the token colour is Cyan
+            { 
+                printf(PRINT_CYAN "%c" PRINT_RESET, '|'); // Print a cyan token
+            }
+            else // Else the colour must be yellow
+            {
+                printf(PRINT_YELLOW "%c" PRINT_RESET, '|'); // Print a yellow token
+            }
+            i--;
+        }
+       
+    }
+}
+
 int isStackEmpty(ListNodePtr currentPtr){
     if(currentPtr == NULL){
         return 1;
@@ -127,7 +169,6 @@ int isStackEmpty(ListNodePtr currentPtr){
 int isStackFull(ListNodePtr currentPtr){
     int counter;
     if(currentPtr == NULL){
-        printf("List is empty.\n\n");
         return 0;
     }else{
         while( currentPtr != NULL){
@@ -156,7 +197,6 @@ int moveToken(ListNodePtr *originalStackPtr, ListNodePtr *newStackPtr){
         int a = returnTopValue(*originalStackPtr);
         if(a != 6){
             insert(newStackPtr, a);
-            printList(*newStackPtr);
             delete(originalStackPtr);
         }else{
             return 0;

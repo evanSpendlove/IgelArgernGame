@@ -1,6 +1,8 @@
 #include "gameIO.h"
 #include "stackMethods.h"
-#include <windows.h>
+#ifdef _WIN32
+    #include <windows.h>
+#endif
 
 /*
     printInstruction() function:
@@ -142,9 +144,7 @@ void printTokensInCell(cell board[6][9], int tokensPerCell, int rows, int column
     }
     else
     {   
-        int stackCount = countStack(board[rows][columns].stackPtr);
-        for(tokenCount = 0; tokenCount <= stackCount; tokenCount++) // For each token up to the number of tokens in the stack
-        {
+        tokenCount = countStack(board[rows][columns].stackPtr);
             #ifdef _WIN32
                 if(returnTopValue(board[rows][columns].stackPtr) == 0) // If the token colour is red
                 {
@@ -183,33 +183,8 @@ void printTokensInCell(cell board[6][9], int tokensPerCell, int rows, int column
                     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
                 }
             #else
-
-                if(returnTopValue(board[rows][columns].stackPtr) == 0) // If the token colour is red
-                {
-                    printf(PRINT_RED "%c" PRINT_RESET, tokenImg); // Print a red token
-                }
-                else if(returnTopValue(board[rows][columns].stackPtr) == 1) // If the token colour is blue
-                {
-                    printf(PRINT_BLUE "%c" PRINT_RESET, tokenImg); // Print a blue token
-                }
-                else if(returnTopValue(board[rows][columns].stackPtr) == 2) // If the token colour is green
-                {
-                    printf(PRINT_GREEN "%c" PRINT_RESET, tokenImg); // Print a green token
-                }
-                else if(returnTopValue(board[rows][columns].stackPtr) == 3) // If the token colour is magenta
-                {
-                    printf(PRINT_MAGENTA "%c" PRINT_RESET, tokenImg); // Print a magenta token
-                }
-                else if(returnTopValue(board[rows][columns].stackPtr) == 4) // If the token colour is Cyan
-                { 
-                    printf(PRINT_CYAN "%c" PRINT_RESET, tokenImg); // Print a cyan token
-                }
-                else // Else the colour must be yellow
-                {
-                    printf(PRINT_YELLOW "%c" PRINT_RESET, tokenImg); // Print a yellow token
-                }
+                printStacks(board[rows][columns].stackPtr);
             #endif
-        }
         while(tokenCount < tokensPerCell) // For the remaining token spaces in the cell
         {
             printf("%c", blank); // Print a blank space
