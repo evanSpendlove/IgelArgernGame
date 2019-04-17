@@ -4,8 +4,6 @@
 
 void controlPanel(int* numPlayers, int* loadSaveGame)
 {
-
-    enum gameStatus currentGame = to_start;
     cell board[MAX_ROWS][MAX_COLUMNS]; // Initialises the game board with the max number of rows and columns
     int obstacleLocations[6]; // Used for checking obstacles at each stage of the game
 
@@ -64,8 +62,22 @@ void controlPanel(int* numPlayers, int* loadSaveGame)
 
 void game(cell board[][MAX_COLUMNS], int totalPlayers, int obstacleLocations[])
 {
+    /* Set up the game */
+    enum gameStatus currentGame = to_start;
     player playerList[totalPlayers];
+
     boardSetup(board, totalPlayers, playerList, obstacleLocations);
     outputBoard(board, totalPlayers);
+
+    currentGame = in_progress;
+
+    #ifdef BUG
+        /* Playing the game from here on */
+        while(currentGame == in_progress)
+        {
+            gameTurn(board, totalPlayers, obstacleLocations, currentGame); // DEFINE THIS 
+        }
+    #endif
+
     printInstruction("Game Started!\n");
 }

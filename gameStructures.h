@@ -49,7 +49,7 @@
             -> in_progress – Game in progress
             -> complete – Game has been completed, i.e. a player has won
         */
-        enum gameStatus { to_start, in_progress, complete };
+        enum gameStatus { to_start, in_progress, complete, saved };
 
         enum colour { Red, Blue, Green, Magenta, Cyan, Yellow };
 
