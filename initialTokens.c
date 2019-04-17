@@ -47,7 +47,7 @@ int isValidPlacement(cell board[][MAX_COLUMNS], const int placedTokenCount, enum
         validInput(&rowChoice, 1, 6); // Validate that their input is an integer and lies within the range 1 - 6
         int stackValue = countStack(board[rowChoice-1][0].stackPtr);
         int topValue = returnTopValue(board[rowChoice-1][0].stackPtr);
-        int onlyValidRow = onlyAvailablePlacement(board, placedTokenCount, playerColour);
+
         if(placedTokenCount < 6) // If not all of the rows have a token on them
         {
             if(isStackEmpty(board[rowChoice-1][0].stackPtr) == 1) // Only allow user to pick a row that has an empty stack
@@ -67,8 +67,9 @@ int isValidPlacement(cell board[][MAX_COLUMNS], const int placedTokenCount, enum
             printf("Chosen a non-empty stack.\n");
         }
 
-        else if(onlyValidRow != -1)
+        else if(onlyAvailablePlacement(board, placedTokenCount, playerColour) != -1)
         {
+            int onlyValidRow = onlyAvailablePlacement(board, placedTokenCount, playerColour);
             printf("Please select any row except %d:\n", onlyValidRow);
             validInput(&rowChoice, 1, 6);
             if(rowChoice != onlyValidRow)
