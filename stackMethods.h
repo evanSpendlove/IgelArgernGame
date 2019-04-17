@@ -3,10 +3,13 @@
 
 int delete( ListNodePtr *tPtr);
 int insert(  ListNodePtr *tPtr, int value );
-int printList( ListNodePtr currentPtr );
+
+void printList(ListNodePtr currentPtr);
+void printStacks(ListNodePtr currentStack);
+
 int isStackEmpty(ListNodePtr currentPtr);
 int isStackFull(ListNodePtr currentPtr);
+
 int moveToken(ListNodePtr *originalStackPtr, ListNodePtr *newStackPtr);
 int returnTopValue(ListNodePtr stackPtr);
 int countStack(ListNodePtr stackPtr);
-int printStacks(ListNodePtr currentStack);

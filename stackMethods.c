@@ -48,7 +48,7 @@ int delete(ListNodePtr *tPtr)
 } 
 
 
-int printList(ListNodePtr currentPtr)
+void printList(ListNodePtr currentPtr)
 {
     /* if list is empty */
     if ( currentPtr == NULL ) {
@@ -65,9 +65,9 @@ int printList(ListNodePtr currentPtr)
 
     printf( "NULL\n\n" );
      } /* end else */
-} /* end function printList */
+}
 
-int printStacks(ListNodePtr currentStack)
+void printStacks(ListNodePtr currentStack)
 {
     int count = countStack(currentStack);
     int stack[count];

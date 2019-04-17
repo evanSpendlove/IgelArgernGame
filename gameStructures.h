@@ -35,12 +35,11 @@
         */
         enum obstacleStatus { active, inactive };
 
-        struct listNode {
+        typedef struct listNode {
              int data; 
              struct listNode *prevPtr; 
-        };  
+        }ListNode;  
         
-        typedef struct listNode ListNode; 
         typedef ListNode *ListNodePtr;
 
         /*
@@ -70,7 +69,5 @@
             enum colour userColour; // Stores the colour of the token
             ListNodePtr userStack;
         }player;
-
-        
-        
+ 
 #endif
