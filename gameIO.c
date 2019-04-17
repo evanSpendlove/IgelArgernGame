@@ -129,7 +129,9 @@ void printTokensInCell(cell board[6][9], int tokensPerCell, int rows, int column
     static const char wall = '|'; // Character representation of a cell wall
     static const char blank = ' '; // Blank space
     int tokenCount; // Counter for looping
-
+    #ifdef _WIN32
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+    #endif
     printf("%c", wall); // Starts cell with cell wall
 
     if(board[rows][columns].obstacle == active) // If there is an obstacle in the current cell
@@ -145,46 +147,9 @@ void printTokensInCell(cell board[6][9], int tokensPerCell, int rows, int column
     else
     {   
         tokenCount = countStack(board[rows][columns].stackPtr);
-            #ifdef _WIN32
-                if(returnTopValue(board[rows][columns].stackPtr) == 0) // If the token colour is red
-                {
-                    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);
-                    printf("%c", tokenImg); // Print a red token
-                    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
-                }
-                else if(returnTopValue(board[rows][columns].stackPtr) == 1) // If the token colour is blue
-                {
-                    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 1);
-                    printf("%c", tokenImg); // Print a blue token
-                    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
-                }
-                else if(returnTopValue(board[rows][columns].stackPtr) == 2) // If the token colour is green
-                {
-                    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 2);
-                    printf("%c", tokenImg); // Print a green token
-                    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
-                }
-                else if(returnTopValue(board[rows][columns].stackPtr) == 3) // If the token colour is magenta
-                {
-                    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 13);
-                    printf("%c", tokenImg); // Print a magenta token
-                    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
-                }
-                else if(returnTopValue(board[rows][columns].stackPtr) == 4) // If the token colour is Cyan
-                { 
-                    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
-                    printf("%c", tokenImg); // Print a cyan token
-                    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
-                }
-                else // Else the colour must be yellow
-                {
-                    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 6);
-                    printf("%c", tokenImg); // Print a yellow token
-                    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
-                }
-            #else
-                printStacks(board[rows][columns].stackPtr);
-            #endif
+           
+        printStacks(board[rows][columns].stackPtr);
+            
         while(tokenCount < tokensPerCell) // For the remaining token spaces in the cell
         {
             printf("%c", blank); // Print a blank space
