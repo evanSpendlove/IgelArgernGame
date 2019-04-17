@@ -9,6 +9,7 @@
 #include <time.h>
 #include <stdbool.h>
 
+
 #ifndef gameStructures_h
     #define gameStructures_h
 
@@ -34,6 +35,14 @@
         */
         enum obstacleStatus { active, inactive };
 
+        struct listNode {
+             int data; 
+             struct listNode *prevPtr; 
+        };  
+        
+        typedef struct listNode ListNode; 
+        typedef ListNode *ListNodePtr;
+
         /*
             Game Status:
             -> to_start – Game not started yet
@@ -51,8 +60,7 @@
 
         typedef struct cell
         {
-            token stack[MAX_TOKENS_PER_STACK]; // Each cell can store up to 24 (6 players, 4 tokens each) tokens in its stack
-            int topOfStack; // Points to the current top of the stack
+            ListNodePtr stackPtr; // Each cell can store up to 24 (6 players, 4 tokens each) tokens in its stack
             enum obstacleStatus obstacle; // Obstacle status for each cell
         }cell;
 
@@ -60,9 +68,10 @@
         {
             char username[100]; // Stores the username of the player
             enum colour userColour; // Stores the colour of the token
-            token user_stack[4]; // Stores the tokens of the user
-            int topOfStack; // Points to the current top of the stack
+            ListNodePtr userStack;
         }player;
+
+        
         
 #endif
 /*

@@ -12,13 +12,15 @@ void getUsername(int i, player playerList[])
 }
 
 void tokenSetup(int playerIndex, player playerList[])
-{
+{   
     for(int token = 0; token < 4; token++) // For every token that a user has (i.e. starts with)
     {
+        /*
         playerList[playerIndex].user_stack[token].tokenColour = playerList[playerIndex].userColour; // Sets all of the user's tokens to their chosen colour
+        playerList[playerIndex].topOfStack = 3; // Points to the top of the stack, currently the 4th token
+        */
+        insert(&playerList[playerIndex].userStack, playerList[playerIndex].userColour);
     }
-
-    playerList[playerIndex].topOfStack = 3; // Points to the top of the stack, currently the 4th token
 }
 
 void colourNotChosen(int* colour, player playerList[], const int totalPlayers)
@@ -82,6 +84,9 @@ void playerSetup(player playerList[], const int totalPlayers)
         /* Ask the user to choose a colour for their tokens */
         getUserColour(i, playerList);
 
+        /* Set the user stack to NULL */
+        playerList[i].userStack = NULL;
+
         /* Sets up the user's tokens */
         tokenSetup(i, playerList); 
     }
@@ -95,7 +100,7 @@ void resetBoard(cell board[][MAX_COLUMNS])
         for(int j = 0; j < MAX_COLUMNS; j++) // For each column in the row
         {
             board[i][j].obstacle = inactive; // Sets the obstacle status for this cell to inactive
-            board[i][j].topOfStack = -1; // Set the stack pointer to -1 (indicating an empty stack)
+            board[i][j].stackPtr = NULL; // Set the stack pointer to -1 (indicating an empty stack)
         }
     }
 }

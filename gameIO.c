@@ -1,21 +1,29 @@
 #include "gameIO.h"
+#include "stackMethods.h"
+#include <windows.h>
 
 /*
     printInstruction() function:
         --> Prints an input string, with format specifiers, in magenta to the console
 */
 void printInstruction(const char *format, ...)
-{
-    printf(PRINT_MAGENTA); // Sets the print colour to Magenta (for instructions)
+{   
+    #ifdef _WIN32
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 5);
+    #else
+        printf(PRINT_MAGENTA); // Sets the print colour to Magenta (for instructions)
+    #endif
 
     va_list argList; // Initialises a list of variable arguments
 
     va_start(argList, format); // Initialises argList to be used for printing variable arguments
 
     vprintf(format, argList); // Prints the format string and its arguments using vprintf()
-
-    printf(PRINT_RESET); // Sets the print colour back to white
-
+    #ifdef _WIN32
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+    #else
+        printf(PRINT_RESET); // Sets the print colour back to white
+    #endif
     va_end(argList); // Ends the variable argument macro
 }
 
@@ -25,15 +33,23 @@ void printInstruction(const char *format, ...)
 */
 void printError(const char *format, ...)
 {
-    printf(PRINT_RED); // Sets the print colour to Magenta (for instructions)
-
+    #ifdef _WIN32
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);
+    #else
+        printf(PRINT_RED); // Sets the print colour to Magenta (for instructions)
+    #endif
+    
     va_list argList; // Initialises a list of variable arguments
 
     va_start(argList, format); // Initialises argList to be used for printing variable arguments
 
     vprintf(format, argList); // Prints the format string and its arguments using vprintf()
 
-    printf(PRINT_RESET); // Sets the print colour back to white
+    #ifdef _WIN32
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+    #else
+        printf(PRINT_RESET); // Sets the print colour back to white
+    #endif
 
     va_end(argList); // Ends the variable argument macro
 }
@@ -120,38 +136,79 @@ void printTokensInCell(cell board[6][9], int tokensPerCell, int rows, int column
         tokensPerCell--; // There is now one object in the cell, so we don't have space to fit 24 more
     }
 
-    if(stackIsEmpty(board[rows][columns].topOfStack) == 1) // If the stack of the current cell is empty
+    if(isStackEmpty(board[rows][columns].stackPtr) == 1) // If the stack of the current cell is empty
     {
         printEmptyCell(tokensPerCell); // Print an empty cell, since there are no tokens in the cell
     }
     else
-    {
-        for(tokenCount = 0; tokenCount <= board[rows][columns].topOfStack; tokenCount++) // For each token up to the number of tokens in the stack
+    {   
+        int stackCount = countStack(board[rows][columns].stackPtr);
+        for(tokenCount = 0; tokenCount <= stackCount; tokenCount++) // For each token up to the number of tokens in the stack
         {
-            if(board[rows][columns].stack[tokenCount].tokenColour == 0) // If the token colour is red
-            {
-                printf(PRINT_RED "%c" PRINT_RESET, tokenImg); // Print a red token
-            }
-            else if(board[rows][columns].stack[tokenCount].tokenColour == 1) // If the token colour is blue
-            {
-                printf(PRINT_BLUE "%c" PRINT_RESET, tokenImg); // Print a blue token
-            }
-            else if(board[rows][columns].stack[tokenCount].tokenColour == 2) // If the token colour is green
-            {
-                printf(PRINT_GREEN "%c" PRINT_RESET, tokenImg); // Print a green token
-            }
-            else if(board[rows][columns].stack[tokenCount].tokenColour == 3) // If the token colour is magenta
-            {
-                printf(PRINT_MAGENTA "%c" PRINT_RESET, tokenImg); // Print a magenta token
-            }
-            else if(board[rows][columns].stack[tokenCount].tokenColour == 4) // If the token colour is Cyan
-            { 
-                printf(PRINT_CYAN "%c" PRINT_RESET, tokenImg); // Print a cyan token
-            }
-            else // Else the colour must be yellow
-            {
-                printf(PRINT_YELLOW "%c" PRINT_RESET, tokenImg); // Print a yellow token
-            }
+            #ifdef _WIN32
+                if(returnTopValue(board[rows][columns].stackPtr) == 0) // If the token colour is red
+                {
+                    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);
+                    printf("%c", tokenImg); // Print a red token
+                    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+                }
+                else if(returnTopValue(board[rows][columns].stackPtr) == 1) // If the token colour is blue
+                {
+                    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 1);
+                    printf("%c", tokenImg); // Print a blue token
+                    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+                }
+                else if(returnTopValue(board[rows][columns].stackPtr) == 2) // If the token colour is green
+                {
+                    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 2);
+                    printf("%c", tokenImg); // Print a green token
+                    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+                }
+                else if(returnTopValue(board[rows][columns].stackPtr) == 3) // If the token colour is magenta
+                {
+                    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 13);
+                    printf("%c", tokenImg); // Print a magenta token
+                    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+                }
+                else if(returnTopValue(board[rows][columns].stackPtr) == 4) // If the token colour is Cyan
+                { 
+                    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
+                    printf("%c", tokenImg); // Print a cyan token
+                    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+                }
+                else // Else the colour must be yellow
+                {
+                    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 6);
+                    printf("%c", tokenImg); // Print a yellow token
+                    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+                }
+            #else
+
+                if(returnTopValue(board[rows][columns].stackPtr) == 0) // If the token colour is red
+                {
+                    printf(PRINT_RED "%c" PRINT_RESET, tokenImg); // Print a red token
+                }
+                else if(returnTopValue(board[rows][columns].stackPtr) == 1) // If the token colour is blue
+                {
+                    printf(PRINT_BLUE "%c" PRINT_RESET, tokenImg); // Print a blue token
+                }
+                else if(returnTopValue(board[rows][columns].stackPtr) == 2) // If the token colour is green
+                {
+                    printf(PRINT_GREEN "%c" PRINT_RESET, tokenImg); // Print a green token
+                }
+                else if(returnTopValue(board[rows][columns].stackPtr) == 3) // If the token colour is magenta
+                {
+                    printf(PRINT_MAGENTA "%c" PRINT_RESET, tokenImg); // Print a magenta token
+                }
+                else if(returnTopValue(board[rows][columns].stackPtr) == 4) // If the token colour is Cyan
+                { 
+                    printf(PRINT_CYAN "%c" PRINT_RESET, tokenImg); // Print a cyan token
+                }
+                else // Else the colour must be yellow
+                {
+                    printf(PRINT_YELLOW "%c" PRINT_RESET, tokenImg); // Print a yellow token
+                }
+            #endif
         }
         while(tokenCount < tokensPerCell) // For the remaining token spaces in the cell
         {

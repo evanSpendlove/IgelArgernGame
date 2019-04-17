@@ -23,7 +23,8 @@
 #include "initialTokens.c"
 
 int main(void)
-{
+{   
+    
     enum gameStatus currentGame = to_start;
     cell board[MAX_ROWS][MAX_COLUMNS]; // Initialises the game board with the max number of rows and columns
     int obstacleLocations[6]; // Used for checking obstacles at each stage of the game
@@ -40,6 +41,7 @@ int main(void)
     boardSetup(board, totalPlayers, playerList, obstacleLocations);
 
     outputBoard(board, totalPlayers);
+    
 
     return 0;
 }

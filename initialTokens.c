@@ -14,7 +14,7 @@ int isValidPlacement(cell board[][MAX_COLUMNS], const int placedTokenCount, enum
 
         if(placedTokenCount < 6) // If not all of the rows have a token on them
         {
-            if(stackIsEmpty(board[rowChoice-1][0].topOfStack) == 1) // Only allow user to pick a row that has an empty stack
+            if(isStackEmpty(board[rowChoice-1][0].stackPtr) == 1) // Only allow user to pick a row that has an empty stack
             {
                 validPlacement = true; // Set boolean to true
                 printf("Chosen a -1.\n");
@@ -25,7 +25,7 @@ int isValidPlacement(cell board[][MAX_COLUMNS], const int placedTokenCount, enum
             }
         }
 
-        else if((board[rowChoice-1][0].topOfStack == ((placedTokenCount/MAX_ROWS)-1)) && (board[rowChoice-1][0].stack[board[rowChoice-1][0].topOfStack].tokenColour != playerColour)) // If the chosen row's stack counter is equal to the average token count per row
+        else if(((countStack(board[rowChoice-1][0].stackPtr)) == ((placedTokenCount/MAX_ROWS)-1)) && (returnTopValue(board[rowChoice-1][0].stackPtr) != playerColour)) // If the chosen row's stack counter is equal to the average token count per row
         {
             validPlacement = true; // Set boolean to true
             printf("Chosen a non-empty stack.\n");
@@ -42,9 +42,12 @@ int isValidPlacement(cell board[][MAX_COLUMNS], const int placedTokenCount, enum
 
 void userPlaceToken(cell board[][MAX_COLUMNS], player playerList[], int player, int row, int column)
 {
+    /*
     token temp; // Initialises a temporary token
     temp = pop(playerList[player].user_stack, &playerList[player].topOfStack); // Pops the top token from the user's stack and stores it in temp
     push(board[row][column].stack, &board[row][column].topOfStack, temp); // Pushes this token onto the chosen cell stack
+    */
+    moveToken(&playerList[player].userStack, &board[row][column].stackPtr);
 }
 
 void initialTokenPlacement(cell board[][MAX_COLUMNS], const int totalPlayers, player playerList[])
@@ -75,7 +78,7 @@ void obstacleCheck(cell board[][MAX_COLUMNS], int obstacleLocations[])
     {
         for(int row = 0; row < MAX_ROWS; row++)
         {
-            if(stackIsEmpty(board[row][column].topOfStack) != 1)
+            if(isStackEmpty(board[row][column].stackPtr) != 1)
             {
                 noTokensInColumn[column] = false;
             }
