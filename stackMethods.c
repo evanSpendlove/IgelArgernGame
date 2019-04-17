@@ -4,6 +4,9 @@
 
 #include "stackMethods.h"
 #include "gameStructures.h"
+#ifdef _WIN32
+    #include <windows.h>
+#endif
 
 int stackIsEmpty(int topOfStack)
 {
@@ -128,30 +131,69 @@ int printStacks(ListNodePtr currentStack){
         }
         i--;
         while(i > -1){
-            if(stack[i] == 0) // If the token colour is red
-            {
-                printf(PRINT_RED "%c" PRINT_RESET, '|'); // Print a red token
-            }
-            else if(stack[i] == 1) // If the token colour is blue
-            {
-                printf(PRINT_BLUE "%c" PRINT_RESET, '|'); // Print a blue token
-            }
-            else if(stack[i] == 2) // If the token colour is green
-            {
-                printf(PRINT_GREEN "%c" PRINT_RESET, '|'); // Print a green token
-            }
-            else if(stack[i] == 3) // If the token colour is magenta
-            {
-                printf(PRINT_MAGENTA "%c" PRINT_RESET, '|'); // Print a magenta token
-            }
-            else if(stack[i] == 4) // If the token colour is Cyan
-            { 
-                printf(PRINT_CYAN "%c" PRINT_RESET, '|'); // Print a cyan token
-            }
-            else // Else the colour must be yellow
-            {
-                printf(PRINT_YELLOW "%c" PRINT_RESET, '|'); // Print a yellow token
-            }
+            #ifdef _WIN32
+                if(stack[i] == 0) // If the token colour is red
+                {
+                    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);
+                    printf("%c", '|'); // Print a red token
+                    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+                }
+                else if(stack[i] == 1) // If the token colour is blue
+                {
+                    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 1);
+                    printf("%c", '|'); // Print a blue token
+                    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+                }
+                else if(stack[i] == 2) // If the token colour is green
+                {
+                    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 2);
+                    printf("%c", '|'); // Print a green token
+                    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+                }
+                else if(stack[i] == 3) // If the token colour is magenta
+                {
+                    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 13);
+                    printf("%c", '|'); // Print a magenta token
+                    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+                }
+                else if(stack[i] == 4) // If the token colour is Cyan
+                { 
+                    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
+                    printf("%c", '|'); // Print a cyan token
+                    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+                }
+                else if(stack[i] == 5) // Else the colour must be yellow
+                {
+                    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 6);
+                    printf("%c", '|'); // Print a yellow token
+                    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+                }
+            #else
+                if(stack[i] == 0) // If the token colour is red
+                {
+                    printf(PRINT_RED "%c" PRINT_RESET, '|'); // Print a red token
+                }
+                else if(stack[i] == 1) // If the token colour is blue
+                {
+                    printf(PRINT_BLUE "%c" PRINT_RESET, '|'); // Print a blue token
+                }
+                else if(stack[i] == 2) // If the token colour is green
+                {
+                    printf(PRINT_GREEN "%c" PRINT_RESET, '|'); // Print a green token
+                }
+                else if(stack[i] == 3) // If the token colour is magenta
+                {
+                    printf(PRINT_MAGENTA "%c" PRINT_RESET, '|'); // Print a magenta token
+                }
+                else if(stack[i] == 4) // If the token colour is Cyan
+                { 
+                    printf(PRINT_CYAN "%c" PRINT_RESET, '|'); // Print a cyan token
+                }
+                else // Else the colour must be yellow
+                {
+                    printf(PRINT_YELLOW "%c" PRINT_RESET, '|'); // Print a yellow token
+                }
+            #endif 
             i--;
         }
        
