@@ -1,79 +1,71 @@
-#include <stdio.h>
-
-void clear(void);
-void game(void);
+#include "userinput.h"
 
 // Need to pass numPlayers, b/c you recursively call the function, so it needs to be passed by reference, not value
 
-void controlPanel(int* numPlayers){
-    int loadSaveGame, selection;
+void controlPanel(int* numPlayers, int* loadSaveGame)
+{
 
-    loadSaveGame = 0;
+    enum gameStatus currentGame = to_start;
+    cell board[MAX_ROWS][MAX_COLUMNS]; // Initialises the game board with the max number of rows and columns
+    int obstacleLocations[6]; // Used for checking obstacles at each stage of the game
 
-    printf("===================================================\n");
-    printf("===================================================\n");
-    printf("==                 CONTROL PANEL                 ==\n");
-    printf("==   Option                       Current        ==\n");
-    printf("==                                               ==\n");
-    printf("==   (1) Num Players                 %d           ==\n",*numPlayers);
-    printf("==   (2) Load game                   %d           ==\n", loadSaveGame);
-    printf("==                                               ==\n");
-    printf("==   (3) Start game                              ==\n");
-    printf("==                                               ==\n");
-    printf("===================================================\n");
-    printf("===================================================\n");
+    int selection;
 
-    scanf("%d",&selection);
-    while(selection > 3 || selection < 1){
-        clear();
-        printf("Invalid selection try again: ");
-        scanf("%d", &selection);
-    }
+    printInstruction("===================================================\n");
+    printInstruction("===================================================\n");
+    printInstruction("==                 CONTROL PANEL                 ==\n");
+    printInstruction("==   Option                       Current        ==\n");
+    printInstruction("==                                               ==\n");
+    printInstruction("==   (1) Num Players                 %d           ==\n",*numPlayers);
+    printInstruction("==   (2) Load game                   %d           ==\n", *loadSaveGame);
+    printInstruction("==                                               ==\n");
+    printInstruction("==   (3) Start game                              ==\n");
+    printInstruction("==                                               ==\n");
+    printInstruction("===================================================\n");
+    printInstruction("===================================================\n");
+
+    validInput(&selection, 1, 3);
 
     switch (selection)
     {
         case 1:
-            printf("How many users? (2-6) ");
-            scanf("%d", numPlayers);
-            while(*numPlayers > 6 || *numPlayers < 2){
-                clear();
-                printf("Invalid input try again: ");
-                scanf("%d", numPlayers);
-            }
-            printf("Num players: %d\n", *numPlayers);
-            controlPanel(numPlayers);
+            printInstruction("How many users? (2-6) ");
+            validInput(numPlayers, 2, 6);
+            printInstruction("Num players: %d\n", *numPlayers);
+            controlPanel(numPlayers, loadSaveGame);
             break;
 
         case 2:
-            printf("Do you wish to load a previous saved game? (1 for yes, anything else for no) ");
-            scanf("%d", &loadSaveGame);
-            controlPanel(numPlayers);
+            printInstruction("Do you wish to load a previous saved game? (1 for yes, 0 for no) ");
+            validInput(loadSaveGame, 0, 1);
+            controlPanel(numPlayers, loadSaveGame);
 
         case 3:
-            printf("GAME STARTING in 5\n");
-            printf("GAME STARTING in 4\n");
-            printf("GAME STARTING in 3\n");
-            printf("GAME STARTING in 2\n");
-            printf("GAME STARTING in 1\n");
-            printf("GAME STARTING\n");
-            game();
+            if(*numPlayers > 0)
+            {
+                printInstruction("GAME STARTING in 5\n");
+                printInstruction("GAME STARTING in 4\n");
+                printInstruction("GAME STARTING in 3\n");
+                printInstruction("GAME STARTING in 2\n");
+                printInstruction("GAME STARTING in 1\n");
+                printInstruction("GAME STARTING\n");
+                game(board, *numPlayers, obstacleLocations);
+            }
+            else
+            {
+                printError("Please select option (1) and enter the number of players (>2, <=6).\n");
+                controlPanel(numPlayers, loadSaveGame);
+            } 
         default:
             break;
     }
     
 }
 
-void clear(void){
-  while (getchar() != '\n');
-}
-
-void game(void)
+void game(cell board[][MAX_COLUMNS], int totalPlayers, int obstacleLocations[])
 {
-    printf("Game Started!\n");
-}
-
-int main(void)
-{
-    int numPlayers = 0;
-    controlPanel(&numPlayers);
+    player playerList[totalPlayers];
+    boardSetup(board, totalPlayers, playerList, obstacleLocations);
+    outputBoard(board, totalPlayers);
+    printInstruction("Game Started!\n");
 }

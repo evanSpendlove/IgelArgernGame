@@ -22,25 +22,23 @@
 #include "initialTokens.h"
 #include "initialTokens.c"
 
+#include "userinput.h"
+#include "userinput.c"
+
 int main(void)
 {   
-    
-    enum gameStatus currentGame = to_start;
-    cell board[MAX_ROWS][MAX_COLUMNS]; // Initialises the game board with the max number of rows and columns
-    int obstacleLocations[6]; // Used for checking obstacles at each stage of the game
-
     srand(time(NULL)); // Seeds the rand() function with the current time to properly randomise thigns
 
     /* Requesting the user to set the total number of players */
     int totalPlayers = 0; // Int for totalPlayers
-    printInstruction("How many players are there?\n"); // Prompts user to enter the number of people playing
-    validInput(&totalPlayers, 2, 6); // Validates the input within the range 2 - 6
-    
-    
-    player playerList[totalPlayers]; // 
-    boardSetup(board, totalPlayers, playerList, obstacleLocations);
+    int loadSaveGame = 0;
 
-    outputBoard(board, totalPlayers);
+    #ifdef BUG
+        printInstruction("How many players are there?\n"); // Prompts user to enter the number of people playing
+        validInput(&totalPlayers, 2, 6); // Validates the input within the range 2 - 6
+    #endif
+
+    controlPanel(&totalPlayers, &loadSaveGame);
     
 
     return 0;

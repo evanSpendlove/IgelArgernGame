@@ -2,6 +2,7 @@
     "files.associations": {
         "gamestructures.h": "c",
         "random.h": "c",
-        "initialtokens.h": "c"
+        "initialtokens.h": "c",
+        "userinput.h": "c"
     }
 }
