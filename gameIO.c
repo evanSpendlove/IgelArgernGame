@@ -1,8 +1,8 @@
+/*
+    
+*/
+
 #include "gameIO.h"
-#include "stackMethods.h"
-#ifdef _WIN32
-    #include <windows.h>
-#endif
 
 /*
     printInstruction() function:
@@ -176,4 +176,61 @@ void outputBoard(cell board[6][9], int totalPlayers)
     }
 
     printBorder(tokensPerCell); // Print the bottom border of the board
+}
+
+void controlPanel(int* numPlayers, int* loadSaveGame)
+{
+    cell board[MAX_ROWS][MAX_COLUMNS]; // Initialises the game board with the max number of rows and columns
+
+    int selection;
+
+    printInstruction("===================================================\n");
+    printInstruction("===================================================\n");
+    printInstruction("==                 CONTROL PANEL                 ==\n");
+    printInstruction("==   Option                       Current        ==\n");
+    printInstruction("==                                               ==\n");
+    printInstruction("==   (1) Num Players                 %d           ==\n",*numPlayers);
+    printInstruction("==   (2) Load game                   %d           ==\n", *loadSaveGame);
+    printInstruction("==                                               ==\n");
+    printInstruction("==   (3) Start game                              ==\n");
+    printInstruction("==                                               ==\n");
+    printInstruction("===================================================\n");
+    printInstruction("===================================================\n");
+
+    validInput(&selection, 1, 3);
+
+    switch (selection)
+    {
+        case 1:
+            printInstruction("How many users? (2-6) ");
+            validInput(numPlayers, 2, 6);
+            printInstruction("Num players: %d\n", *numPlayers);
+            controlPanel(numPlayers, loadSaveGame);
+            break;
+
+        case 2:
+            printInstruction("Do you wish to load a previous saved game? (1 for yes, 0 for no) ");
+            validInput(loadSaveGame, 0, 1);
+            controlPanel(numPlayers, loadSaveGame);
+
+        case 3:
+            if(*numPlayers > 0)
+            {
+                printInstruction("GAME STARTING in 5\n");
+                printInstruction("GAME STARTING in 4\n");
+                printInstruction("GAME STARTING in 3\n");
+                printInstruction("GAME STARTING in 2\n");
+                printInstruction("GAME STARTING in 1\n");
+                printInstruction("GAME STARTING\n");
+                game(board, *numPlayers);
+            }
+            else
+            {
+                printError("Please select option (1) and enter the number of players (>2, <=6).\n");
+                controlPanel(numPlayers, loadSaveGame);
+            } 
+        default:
+            break;
+    }
+    
 }

@@ -5,10 +5,10 @@
 
 #include "gameSetup.h"
 
-void getUsername(int i, player playerList[])
+void getUsername(int playerNumber, player playerList[])
 {
-    printInstruction("Player %d, what is your username?\n", i+1); // Prompts the user to enter their username
-    scanf(" %98[^\n]s", playerList[i].username); // Scans up to 100 characters or up to a newline and stores it in their username
+    printInstruction("Player %d, what is your username?\n", playerNumber+1); // Prompts the user to enter their username
+    scanf(" %98[^\n]s", playerList[playerNumber].username); // Scans up to 100 characters or up to a newline and stores it in their username
 }
 
 void tokenSetup(int playerIndex, player playerList[])
@@ -105,17 +105,125 @@ void resetBoard(cell board[][MAX_COLUMNS])
     }
 }
 
+int onlyAvailablePlacement(cell board[][MAX_COLUMNS], const int placedTokenCount, enum colour playerColour)
+{
+    int invalidRows[6] = {0};
+    int invalidRowcounter = 0;
+
+    for(int row = 0; row < MAX_ROWS; row++)
+    {
+        int stackValue = countStack(board[row][0].stackPtr);
+        if(stackValue != ((placedTokenCount/MAX_ROWS)))
+        {
+            invalidRows[row] = 1;
+            invalidRowcounter++;
+        }
+    }
+
+    if(invalidRowcounter == 5)
+    {
+        int validRow;
+        for(int row = 0; row < MAX_ROWS; row++)
+        {
+            if(invalidRows[row] != 1)
+            {
+                validRow = row;
+            }
+        }
+        if(returnTopValue(board[validRow][0].stackPtr) == playerColour)
+        {
+            return validRow;
+        }
+    }
+
+    return -1;
+}
+
+int isValidPlacement(cell board[][MAX_COLUMNS], const int placedTokenCount, enum colour playerColour)
+{
+    bool validPlacement = false; // Flag for valid placement status
+    int rowChoice = 0; // Integer variable for storing user's choice of row
+
+    while(validPlacement != true) // While the user has not selected a valid row
+    {
+        printInstruction("Which row do you wish to place your token in?\n"); // Instruct the user to pick a row
+        validInput(&rowChoice, 1, 6); // Validate that their input is an integer and lies within the range 1 - 6
+        int stackValue = countStack(board[rowChoice-1][0].stackPtr);
+        int topValue = returnTopValue(board[rowChoice-1][0].stackPtr);
+
+        if(placedTokenCount < 6) // If not all of the rows have a token on them
+        {
+            if(isStackEmpty(board[rowChoice-1][0].stackPtr) == 1) // Only allow user to pick a row that has an empty stack
+            {
+                validPlacement = true; // Set boolean to true
+                printf("Chosen a -1.\n");
+            }
+            else
+            {
+                printError("Please select an empty row to minimise stack size.\n"); // Print an appropriate error message to the user
+            }
+        }
+
+        else if((stackValue == ((placedTokenCount/MAX_ROWS))) && (topValue != playerColour)) // If the chosen row's stack counter is equal to the average token count per row
+        {
+            validPlacement = true; // Set boolean to true
+            printf("Chosen a non-empty stack.\n");
+        }
+
+        else if(onlyAvailablePlacement(board, placedTokenCount, playerColour) != -1)
+        {
+            int onlyValidRow = onlyAvailablePlacement(board, placedTokenCount, playerColour);
+            printf("Please select any row except %d:\n", onlyValidRow);
+            validInput(&rowChoice, 1, 6);
+            if(rowChoice != onlyValidRow)
+            {
+                validPlacement = true;
+                printf("You've picked a valid row (these rules are funny, huh).");
+            }
+        }
+
+        else
+        {
+            printError("Please select a valid row to minimise stack size.\n"); // Print an appropriate error message to the user
+        }
+    }
+
+    return (rowChoice-1); // Returns the (valid) row selected by the user
+}
+
+void userPlaceToken(cell board[][MAX_COLUMNS], player playerList[], int player, int row, int column)
+{
+    /*
+    token temp; // Initialises a temporary token
+    temp = pop(playerList[player].user_stack, &playerList[player].topOfStack); // Pops the top token from the user's stack and stores it in temp
+    push(board[row][column].stack, &board[row][column].topOfStack, temp); // Pushes this token onto the chosen cell stack
+    */
+    moveToken(&playerList[player].userStack, &board[row][column].stackPtr);
+}
+
+void initialTokenPlacement(cell board[][MAX_COLUMNS], const int totalPlayers, player playerList[])
+{
+    int placedTokenCount = 0;
+    int rowChoice = -1;
+
+    for(int round = 0; round < 4; round++)
+    {
+        for(int player = 0; player < totalPlayers; player++)
+        {
+            printInstruction("%s's turn:\n", playerList[player].username);
+            rowChoice = isValidPlacement(board, placedTokenCount, playerList[player].userColour);
+            userPlaceToken(board, playerList, player, rowChoice, 0);
+            placedTokenCount++;
+        }
+    }
+
+}
+
 void obstacleSetup(cell board[][MAX_COLUMNS], int obstacleLocations[])
 {
-    int i; /* Counter for looping over the array */
-    int columnSelection[6] = {2,3,4,5,6,7}; // Array of all valid columns for an obstacle
-
-    fisherShuffle(columnSelection, 6); /* Calls the fisherShuffle() function to shuffle the array properly */
-
-    for(i = 0; i < MAX_ROWS; i++) // For each row
+    for(int row = 0; row < MAX_ROWS; row++)
     {
-        board[i][columnSelection[i]].obstacle = active; // Set an obstacle in a random column
-        obstacleLocations[i] = columnSelection[i]; // Stores the locations of each obstacle in an array
+        board[row][obstacleLocations[row]].obstacle = active;
     }
 }
 

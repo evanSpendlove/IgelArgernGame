@@ -74,8 +74,3 @@
         
         
 #endif
-/*
-typedef struct token;
-typedef struct cell;
-typedef struct player;
-*/

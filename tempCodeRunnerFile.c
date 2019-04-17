@@ -1,1 +1,0 @@
-obstacleCheck(board, obstacleLocations);

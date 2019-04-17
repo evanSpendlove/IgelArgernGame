@@ -5,15 +5,13 @@
 
 #include "gameStructures.h"
 #include "gameIO.h"
-#include "random.h"
-#include "initialTokens.h"
 
 /*
     getUsername() function:
         --> Prompts the user to input their username
         --> Stores their username in their .username attribute
 */
-void getUsername(int i, player playerList[]);
+void getUsername(int playerNumber, player playerList[]);
 
 /*
     tokenSetup() function:
@@ -48,6 +46,24 @@ void playerSetup(player playerList[], const int totalPlayers);
         --> Sets the stack pointers for each cell in the board to -1 (indicating an empty stack)
 */
 void resetBoard(cell board[][MAX_COLUMNS]);
+
+/*
+    isValidPlacement() function:
+        -->
+*/
+int isValidPlacement(cell board[][MAX_COLUMNS], const int placedTokenCount, enum colour playerColour);
+
+/*
+    userPlaceToken() function:
+        -->
+*/
+void userPlaceToken(cell board[][MAX_COLUMNS], player playerList[], int player, int row, int column);
+
+/*
+    initialTokenPlacement() function:
+        -->
+*/
+void initialTokenPlacement(cell board[][MAX_COLUMNS], const int totalPlayers, player playerList[]);
 
 /*
     obstacleSetup() function:

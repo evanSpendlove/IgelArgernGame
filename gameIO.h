@@ -5,8 +5,13 @@
 */
 
 #include "gameStructures.h"
+#include "gameMechanics.h"
 #include "stackMethods.h"
 #include <stdarg.h>
+
+#ifdef _WIN32
+    #include <windows.h>
+#endif
 
 /*
     printInstruction() function:
@@ -56,3 +61,8 @@ void printTokensInCell(cell board[6][9], int tokensPerCell, int rows, int column
 */
 void outputBoard(cell board[6][9], int totalPlayers);
 
+/*
+    controlPanel() function:
+        -->
+*/
+void controlPanel(int* numPlayers, int* loadSaveGame);
