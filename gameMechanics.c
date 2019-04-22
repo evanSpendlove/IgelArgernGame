@@ -26,7 +26,6 @@ void game(cell board[][MAX_COLUMNS], int totalPlayers, bool loadSaveGame)
     if(loadSaveGame == 1) // If the user wants a saved game to be loaded
     {
         load(&totalPlayers, board, playerList, winningTokens); // load the game from save.txt
-        printWinners(totalPlayers, winningTokens, playerList);
     }
     else // Otherwise, they are starting a new game
     {
@@ -52,7 +51,7 @@ void game(cell board[][MAX_COLUMNS], int totalPlayers, bool loadSaveGame)
             {
                 currentGame = complete; // Set game status to complete
                 printWinners(totalPlayers, winningTokens, playerList); // Print the winners of the game
-                break; // End the loops
+                break; // End the loop
             }
         }
 

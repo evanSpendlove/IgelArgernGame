@@ -6,6 +6,7 @@
 
 #include "stackMethods.h"
 #include "gameStructures.h"
+#include "gameIO.h"
 #ifdef _WIN32
     #include <windows.h>
 #endif
@@ -32,19 +33,22 @@ int insert(ListNodePtr *tPtr, int value)
     } 
     else 
     {
-        printf( "%d not inserted. No memory available.\n", value );
+        printError( "%d not inserted. No memory available.\n", value );
         return 2;
     } 
 } 
 
 int delete(ListNodePtr *tPtr)
 {
-     if (*tPtr != NULL) {
+     if (*tPtr != NULL) 
+     {
          ListNodePtr tempPtr = *tPtr;
          *tPtr = (*tPtr)->prevPtr;
          return 1;
-    }else{
-        printf("List is empty. \n\n");
+    }
+    else
+    {
+        printError("List is empty.\n");
         return 2;
     }
 } 
@@ -54,18 +58,18 @@ void printList(ListNodePtr currentPtr)
 {
     /* if list is empty */
     if ( currentPtr == NULL ) {
-        printf( "List is empty.\n\n" );
+        printInstruction( "List is empty.\n\n" );
      } /* end if */
     else {
-        printf( "The list is:\n" );
+        printInstruction( "The list is:\n" );
 
     /* while not the end of the list */
     while ( currentPtr != NULL ) {
-        printf( "%d --> ", currentPtr->data );
+        printInstruction( "%d --> ", currentPtr->data );
         currentPtr = currentPtr->prevPtr;
      } /* end while */
 
-    printf( "NULL\n\n" );
+    printInstruction( "NULL\n\n" );
      } /* end else */
 }
 
@@ -184,12 +188,11 @@ int isStackFull(ListNodePtr currentPtr)
         }
         if(counter == 24)
         {
-            printf("Stack is full.\n\n");
+            printError("Stack is full.\n\n");
             return 1;
         }
         else
         {
-            printf("Stack isn't full.\n\n");
             return 0;
         }
     }
@@ -199,20 +202,21 @@ int moveToken(ListNodePtr *originalStackPtr, ListNodePtr *newStackPtr)
 {
     if(isStackFull(*newStackPtr) == 1)
     {
-        printf("New stack is full, unable to complete move.\n\n");
+        printError("New stack is full, unable to complete move.\n\n");
         return 0;
     }
     else if(isStackEmpty(*originalStackPtr) == 1)
     {
-        printf("Original stack is empty, no token to move. Move uncompletable.\n\n");
+        printError("Original stack is empty, no token to move. Move uncompletable.\n\n");
         return 0;
     }
     else
     {
-        ListNodePtr newPtr = malloc( sizeof(ListNode) );
+        ListNodePtr newPtr = malloc(sizeof(ListNode));
         int a = returnTopValue(*originalStackPtr);
 
-        if(a != 6){
+        if(a != 6)
+        {
             insert(newStackPtr, a);
             delete(originalStackPtr);
         }
@@ -236,6 +240,7 @@ int returnTopValue(ListNodePtr stackPtr)
         return 6;
     }
 }
+
 int countStack(ListNodePtr stackPtr)
 {
     if(stackPtr != NULL)
