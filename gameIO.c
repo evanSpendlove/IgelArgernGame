@@ -1,5 +1,7 @@
 /*
-    
+    Game IO C file:
+        --> Contains the functions for game input/output
+    Written by: Evan Spendlove (18492656) && Reuben Mulligan (18733589)
 */
 
 #include "gameIO.h"
@@ -328,26 +330,4 @@ void validInput(int* integer, const int lower, const int upper)
 void clearInput(void)
 {
     while(getchar() != '\n'); // Clears input buffer
-}
-
-/* DELETE FROM HERE ON */
-
-void outputStacks(cell board[MAX_ROWS][MAX_COLUMNS], const int totalPlayers)
-{
-    int rows, columns, tokensPerCell; // Counters for looping
-
-    tokensPerCell = (4*totalPlayers); // Number of tokens per cell = 4 tokens per user
-
-    for(rows = 0; rows < MAX_ROWS; rows++) // For each row on the board
-    {
-        printBorder(tokensPerCell); // Prints the top border of the current row
-
-        for(columns = 0; columns < MAX_COLUMNS; columns++) // For each column in the row...
-        {
-            printList(board[rows][columns].stackPtr);
-        }
-        printf("|\n"); // Print the final cell wall and a newline
-    }
-
-    printBorder(tokensPerCell); // Print the bottom border of the board
 }

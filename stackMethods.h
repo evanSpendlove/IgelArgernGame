@@ -1,10 +1,14 @@
-
+/*
+    Stack Methods Header File:
+        --> Contains all of the function prototypes for the functions in stackMethods.c
+    Written by: Reuben Mulligan (18733589)
+*/
 #include "gameStructures.h"
 
-int delete( ListNodePtr *tPtr);
+int delete( ListNodePtr *tPtr); // Maybe remove? (Do we use?)
 int insert(  ListNodePtr *tPtr, int value );
 
-void printList(ListNodePtr currentPtr);
+void printList(ListNodePtr currentPtr); // Maybe remove?
 void printStacks(ListNodePtr currentStack);
 
 int isStackEmpty(ListNodePtr currentPtr);

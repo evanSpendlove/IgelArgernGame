@@ -1,6 +1,7 @@
 /*
-    Contains the implementation of all of the functions required to set up the game.
-    Written by: Evan Spendlove (18492656)
+    Game Setup C file:
+        --> Contains all of the functions for setting up the board, obstacles, players and tokens
+    Written by: Evan Spendlove (18492656) && Reuben Mulligan (18733589)
 */
 
 #include "gameSetup.h"

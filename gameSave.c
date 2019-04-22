@@ -1,5 +1,10 @@
-
+/*
+    Game Saving and Loading C file:
+        --> Contains the functions for saving the current game state to a text file and loading the game from a text file
+    Written by: Evan Spendlove (18492656) && Reuben Mulligan (18733589)
+*/
 #include "gameSave.h"
+#include "gameIO.h"
 
 /* SAVE GAME FUNCTIONS */
 int save(int totalPlayers, cell board[MAX_ROWS][MAX_COLUMNS], player playerList[totalPlayers], int winningTokens[totalPlayers])

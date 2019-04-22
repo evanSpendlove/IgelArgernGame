@@ -1,5 +1,7 @@
 /*
-    Stack methods
+    Stack Methods C file:
+        --> Contains all of the functions required for linked-list stack implementation
+    Written by: Reuben Mulligan (18733589)
 */
 
 #include "stackMethods.h"

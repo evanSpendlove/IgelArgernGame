@@ -1,6 +1,7 @@
 /*
-    Header file containing function prototypes for all functions required to set up the game
-    Written by: Evan Spendlove (18492656)
+    Game Setup Header file:
+        --> Contains the function prototypes for all of the functions in gameSetup.c
+    Written by: Evan Spendlove (18492656) && Reuben Mulligan (18733589)
 */
 
 #include "gameStructures.h"

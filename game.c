@@ -1,6 +1,7 @@
 /*
-    Main file for the Game.
-    Project written by: Reuben Mulligan, Evan Spendlove
+    COMP10050 - Assignment 2
+        Main C File - Igel Agern Game Implementation
+        Written by: Evan Spendlove (18492656) && Reuben Mulligan (18733589)
 */
 
 /* #INCLUDES GO HERE */

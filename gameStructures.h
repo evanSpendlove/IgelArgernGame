@@ -1,8 +1,10 @@
 /*
-    This header file includes all of the structure definitions and constants required by the game.
+    Game Structures Header File:
+        --> This header file includes all of the structure definitions and constants required by the game.
     Written by: Evan Spendlove (18492656) and Reuben Mulligan (18733589)
 */
 
+/* # INCLUDES FOR INCLUDING STANDARD C LIBRARIES */
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>

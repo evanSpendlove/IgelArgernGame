@@ -1,7 +1,7 @@
 /*
     Header file for Game input and output
-    -> Contains function prototypes for all functions in gameIO.c file
-    Written by: Evan Spendlove (18492656)
+    -> Contains function prototypes for all input/output functions in gameIO.c file
+    WWritten by: Evan Spendlove (18492656) && Reuben Mulligan (18733589)
 */
 
 #include "gameStructures.h"

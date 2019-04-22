@@ -1,9 +1,10 @@
 /*
-
+    Game Save and Load Header File:
+        --> Contains the function prototypes for the gameSave.c file
+    Written by: Evan Spendlove (18492656) && Reuben Mulligan (18733589)
 */
 
 #include "gameStructures.h"
-#include "gameIO.h"
 
 /*
     save() function:
