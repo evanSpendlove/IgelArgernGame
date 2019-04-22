@@ -1,0 +1,171 @@
+--TOTAL PLAYERS--
+6
+--PLAYER INFORMATION--
+Bob 0 4
+Mary 1 2
+Cian 2 5
+Sarah 3 3
+Sam 4 3
+Ian 5 0
+--ROW: 0, COLUMN: 0--
+0
+0 5 0 NULL
+--ROW: 0, COLUMN: 1--
+0
+5 NULL
+--ROW: 0, COLUMN: 2--
+0
+NULL
+--ROW: 0, COLUMN: 3--
+1
+NULL
+--ROW: 0, COLUMN: 4--
+0
+NULL
+--ROW: 0, COLUMN: 5--
+0
+NULL
+--ROW: 0, COLUMN: 6--
+0
+NULL
+--ROW: 0, COLUMN: 7--
+0
+NULL
+--ROW: 0, COLUMN: 8--
+0
+NULL
+--ROW: 1, COLUMN: 0--
+0
+1 0 1 NULL
+--ROW: 1, COLUMN: 1--
+0
+0 NULL
+--ROW: 1, COLUMN: 2--
+0
+NULL
+--ROW: 1, COLUMN: 3--
+0
+NULL
+--ROW: 1, COLUMN: 4--
+0
+NULL
+--ROW: 1, COLUMN: 5--
+0
+NULL
+--ROW: 1, COLUMN: 6--
+1
+NULL
+--ROW: 1, COLUMN: 7--
+0
+NULL
+--ROW: 1, COLUMN: 8--
+0
+NULL
+--ROW: 2, COLUMN: 0--
+0
+2 1 2 NULL
+--ROW: 2, COLUMN: 1--
+0
+1 NULL
+--ROW: 2, COLUMN: 2--
+0
+NULL
+--ROW: 2, COLUMN: 3--
+0
+NULL
+--ROW: 2, COLUMN: 4--
+1
+NULL
+--ROW: 2, COLUMN: 5--
+0
+NULL
+--ROW: 2, COLUMN: 6--
+0
+NULL
+--ROW: 2, COLUMN: 7--
+0
+NULL
+--ROW: 2, COLUMN: 8--
+0
+NULL
+--ROW: 3, COLUMN: 0--
+0
+3 2 3 NULL
+--ROW: 3, COLUMN: 1--
+0
+2 NULL
+--ROW: 3, COLUMN: 2--
+0
+NULL
+--ROW: 3, COLUMN: 3--
+0
+NULL
+--ROW: 3, COLUMN: 4--
+0
+NULL
+--ROW: 3, COLUMN: 5--
+1
+NULL
+--ROW: 3, COLUMN: 6--
+0
+NULL
+--ROW: 3, COLUMN: 7--
+0
+NULL
+--ROW: 3, COLUMN: 8--
+0
+NULL
+--ROW: 4, COLUMN: 0--
+0
+4 3 4 NULL
+--ROW: 4, COLUMN: 1--
+0
+3 NULL
+--ROW: 4, COLUMN: 2--
+1
+NULL
+--ROW: 4, COLUMN: 3--
+0
+NULL
+--ROW: 4, COLUMN: 4--
+0
+NULL
+--ROW: 4, COLUMN: 5--
+0
+NULL
+--ROW: 4, COLUMN: 6--
+0
+NULL
+--ROW: 4, COLUMN: 7--
+0
+NULL
+--ROW: 4, COLUMN: 8--
+0
+NULL
+--ROW: 5, COLUMN: 0--
+0
+5 4 5 NULL
+--ROW: 5, COLUMN: 1--
+0
+4 NULL
+--ROW: 5, COLUMN: 2--
+0
+NULL
+--ROW: 5, COLUMN: 3--
+0
+NULL
+--ROW: 5, COLUMN: 4--
+0
+NULL
+--ROW: 5, COLUMN: 5--
+0
+NULL
+--ROW: 5, COLUMN: 6--
+0
+NULL
+--ROW: 5, COLUMN: 7--
+1
+NULL
+--ROW: 5, COLUMN: 8--
+0
+NULL

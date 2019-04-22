@@ -19,15 +19,17 @@
 #include "gameMechanics.h"
 #include "gameMechanics.c"
 
+#include "gameSave.h"
+#include "gameSave.c"
+
 int main(void)
 {   
     srand(time(NULL)); // Seeds the rand() function with the current time to properly randomise thigns
 
-    /* Requesting the user to set the total number of players */
     int totalPlayers = 0; // Int for totalPlayers
-    int loadSaveGame = 0;
+    int loadSaveGame = false; // Used for checking if the user has requested to load a saved game file
 
-    controlPanel(&totalPlayers, &loadSaveGame);
+    controlPanel(&totalPlayers, &loadSaveGame); // Calls controlPanel() to start the main program
 
     return 0;
 }

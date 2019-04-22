@@ -1,6 +1,6 @@
 /*
     This header file includes all of the structure definitions and constants required by the game.
-    Written by: Evan Spendlove (18492656)
+    Written by: Evan Spendlove (18492656) and Reuben Mulligan (18733589)
 */
 
 #include <stdio.h>
@@ -33,14 +33,7 @@
             -> Active – The obstacle is enabled and there are tokens to the left of it
             -> Inactive – Not an obstacle or all tokens are to the right of it
         */
-        enum obstacleStatus { active, inactive };
-
-        typedef struct listNode {
-             int data; 
-             struct listNode *prevPtr; 
-        }ListNode;  
-        
-        typedef ListNode *ListNodePtr;
+        enum obstacleStatus { inactive, active };
 
         /*
             Game Status:
@@ -50,9 +43,22 @@
         */
         enum gameStatus { to_start, in_progress, complete, saved };
 
+        /*
+            Colour:
+            -> The various possible colours of the tokens and users
+        */
         enum colour { Red, Blue, Green, Magenta, Cyan, Yellow };
 
-        typedef struct token
+        /* Typedef and structure creation */
+
+        typedef struct listNode {
+             int data; // Stores the token colour (from the enum colour)
+             struct listNode *prevPtr; // Links this node to the previous one (i.e. further down in the stack)
+        }ListNode;  
+        
+        typedef ListNode *ListNodePtr; // Typedefing a pointer for ease of use
+
+        typedef struct token // Token structure
         {
             enum colour tokenColour; // Stores the colour of the token
         }token;
@@ -67,7 +73,7 @@
         {
             char username[100]; // Stores the username of the player
             enum colour userColour; // Stores the colour of the token
-            ListNodePtr userStack;
+            ListNodePtr userStack; // Stores the user's stack of tokens
         }player;
  
 #endif
