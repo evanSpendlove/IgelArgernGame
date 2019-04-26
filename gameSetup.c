@@ -162,6 +162,10 @@ void initialTokenPlacement(cell board[][MAX_COLUMNS], const int totalPlayers, pl
             printInstruction("'s turn:\n", playerList[player].username); // Print that it's their turn
 
             rowChoice = isValidPlacement(board, placedTokenCount, playerList[player].userColour); // Assign a valid token placement to rowChoice by calling isValidPlacement() to prompt user and supply input
+            while(rowChoice == -1){
+                printError("Error occured validating placement. Trying again\n\n");
+                rowChoice = isValidPlacement(board, placedTokenCount, playerList[player].userColour);
+            }
             moveToken(&playerList[player].userStack, &board[rowChoice][0].stackPtr); // Move the token from the player's stack onto their chosen board cell stack
             placedTokenCount++; // Increment placedTokenCount
         }
@@ -180,7 +184,14 @@ int isValidPlacement(cell board[][MAX_COLUMNS], const int placedTokenCount, enum
         validInput(&rowChoice, 1, 6); // Validate that their input is an integer and lies within the range 1 - 6
         int stackValue = countStack(board[rowChoice-1][0].stackPtr);
         int topValue = returnTopValue(board[rowChoice-1][0].stackPtr);
+        if(stackValue == -1){
+            printError("Error occured counting chosen stack\n\n");
+            return -1;  
+        }else if(topValue == 6){
+            printError("Error occured in return top value\n\n");
+            return -1;
 
+        }
         if(placedTokenCount < 6) // If not all of the rows have a token on them
         {
             if(isStackEmpty(board[rowChoice-1][0].stackPtr) == 1) // Only allow user to pick a row that has an empty stack

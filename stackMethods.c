@@ -1,7 +1,7 @@
 /*
     Stack Methods C file:
         --> Contains all of the functions required for linked-list stack implementation
-    Written by: Reuben Mulligan (18733589)
+    Written by: Reuben Mulligan (18733589) and Evan Spendlove (18492656)
 */
 
 #include "stackMethods.h"
@@ -217,15 +217,23 @@ int moveToken(ListNodePtr *originalStackPtr, ListNodePtr *newStackPtr)
 
         if(a != 6)
         {
-            insert(newStackPtr, a);
-            delete(originalStackPtr);
+            if(insert(newStackPtr, a) == 2){
+                printError("Insert failed\n\n");
+                return 0;
+            }else{
+                if(delete(originalStackPtr) == 2){
+                    printError("Delete failed\n\n");
+                    return 0;
+                }
+
+            }
+            return 1;
         }
         else
         {
             return 0;
         }
 
-        return 1;
     }
 }
 

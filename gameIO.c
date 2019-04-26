@@ -147,7 +147,10 @@ void printTokensInCell(cell board[MAX_ROWS][MAX_COLUMNS], int tokensPerCell, con
     else
     {   
         tokenCount = countStack(board[rows][columns].stackPtr);
-           
+        while(tokenCount == -1){
+            printError("Error occured in counting stack, if this continues Ctrl+C to exit\n\n");
+            tokenCount = countStack(board[rows][columns].stackPtr);
+        }
         printStacks(board[rows][columns].stackPtr);
             
         while(tokenCount < tokensPerCell) // For the remaining token spaces in the cell

@@ -120,12 +120,12 @@ void moveSideways(cell board[][MAX_COLUMNS], int totalPlayers, player playerList
 
         if(row == 1) // If the row chosen is the first row
         {
-            printInstruction("You can only move this token down one row (to row: %d), press 1 to confirm: ", row-1); // The token can only be moved down
+            printInstruction("You can only move this token down one row (to row: %d), press 1 to confirm: ", row+1); // The token can only be moved down
             validInput(&newRow, 1, 1); // Only accept 1 as input
         }
         else if(row == 6) // If the row chosen is the final row
         {
-            printInstruction("You can only move this token up one row (to row: %d), press 0 to confirm: ", row+1); // The token can only be moved up one row
+            printInstruction("You can only move this token up one row (to row: %d), press 0 to confirm: ", row-1); // The token can only be moved up one row
             validInput(&newRow, 0, 0); // Only accept 0 as input
         }
         else // Otherwise, the row is somewhere in the middle
@@ -136,11 +136,19 @@ void moveSideways(cell board[][MAX_COLUMNS], int totalPlayers, player playerList
         
         if(newRow == 0) // If they want to move the token up a row
         {
-            moveToken(&board[row-1][column-1].stackPtr, &board[row-2][column-1].stackPtr); // Move it up (-2) a row
+            int check = moveToken(&board[row-1][column-1].stackPtr, &board[row-2][column-1].stackPtr); // Move it up (-2) a row
+            while(check == 0{
+                printError("Error occured during movement of token, trying again\n\n");
+                check = moveToken(&board[row-1][column-1].stackPtr, &board[row-2][column-1].stackPtr);
+            } 
         }
         else // Otherwise, they want to move it down a row
         {
-            moveToken(&board[row-1][column-1].stackPtr, &board[row][column-1].stackPtr); // Move it down (+-0) a row
+            int check2 = moveToken(&board[row-1][column-1].stackPtr, &board[row][column-1].stackPtr); // Move it down (+-0) a row
+            while(check2 == 0){
+                printError("An error occured during movement of a token, trying again\n\n");
+                check2 = moveToken(&board[row-1][column-1].stackPtr, &board[row][column-1].stackPtr);
+            }
         }
        
         outputBoard(board, totalPlayers); // Output the board after the token has been moved sideways 
@@ -168,7 +176,10 @@ void moveForwards(cell board[][MAX_COLUMNS], int totalPlayers, player playerList
                     updateWinningTokens(board, totalPlayers, playerList, winningTokens, dieSelectedRow-1, choice-1); // Update winningTokens[] with this token
                 }
 
-                moveToken(&board[dieSelectedRow-1][choice-1].stackPtr, &board[dieSelectedRow-1][choice].stackPtr); // Move the token
+                if(moveToken(&board[dieSelectedRow-1][choice-1].stackPtr, &board[dieSelectedRow-1][choice].stackPtr) == 0){
+                    printError("An error occured during token move, breaking\n\n");
+                    return;
+                } // Move the token
                 outputBoard(board, totalPlayers); // Output the new bord
 
                 validMoveMade = true; // Update boolean
