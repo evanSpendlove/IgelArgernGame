@@ -217,11 +217,15 @@ int moveToken(ListNodePtr *originalStackPtr, ListNodePtr *newStackPtr)
 
         if(a != 6)
         {
-            if(insert(newStackPtr, a) == 2){
+            if(insert(newStackPtr, a) == 2)
+            {
                 printError("Insert failed\n\n");
                 return 0;
-            }else{
-                if(delete(originalStackPtr) == 2){
+            }
+            else
+            {
+                if(delete(originalStackPtr) == 2)
+                {
                     printError("Delete failed\n\n");
                     return 0;
                 }
@@ -243,7 +247,13 @@ int returnTopValue(ListNodePtr stackPtr)
     {
         return (stackPtr->data);
     }
-    else
+
+    else if(stackPtr == NULL) // If the stack pointer is NULL (i.e. empty stack)
+    {
+        return -1;
+    }
+
+    else // An error ocurred
     {
         return 6;
     }
@@ -264,7 +274,12 @@ int countStack(ListNodePtr stackPtr)
         return counter;
     }
 
-    else
+    else if(stackPtr == NULL) // If the stack is empty
+    {
+        return 0; // Stack is empty
+    }
+
+    else // An error ocurred
     {
         return -1;
     }

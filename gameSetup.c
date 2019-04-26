@@ -182,12 +182,17 @@ int isValidPlacement(cell board[][MAX_COLUMNS], const int placedTokenCount, enum
     {
         printInstruction("Which row do you wish to place your token in?\n"); // Instruct the user to pick a row
         validInput(&rowChoice, 1, 6); // Validate that their input is an integer and lies within the range 1 - 6
+
         int stackValue = countStack(board[rowChoice-1][0].stackPtr);
         int topValue = returnTopValue(board[rowChoice-1][0].stackPtr);
-        if(stackValue == -1){
+        
+        if(stackValue == -1)
+        {
             printError("Error occured counting chosen stack\n\n");
             return -1;  
-        }else if(topValue == 6){
+        }
+        else if(topValue == 6)
+        {
             printError("Error occured in return top value\n\n");
             return -1;
 

@@ -21,9 +21,6 @@
     */
     void resetBoard(cell board[][MAX_COLUMNS]);
 
-
-
-
 /* OBSTACLE SETUP */
     /*
         obstacleSetup() function:
