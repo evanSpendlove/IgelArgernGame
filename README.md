@@ -1,5 +1,6 @@
-# COMP10050-GroupProject
+# Igel Argern Game
 
 Group Project for Software Engineering
-Reuben Mulligan - 18733589
-Evan Spendlove - 18492656
+
+Designed by: Evan Spendlove, Reuben Mulligan (/reubsmull)
+
